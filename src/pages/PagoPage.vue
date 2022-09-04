@@ -4,8 +4,8 @@
       <q-card-section>
         <q-img width="300px" height="300px" src="../assets/qr/1.jpg" />
         <div class="q-pa-md">
-          <h6>Cantidad de Cuentas: 5</h6>
-          <h6>Monto Total: $ 75</h6>
+          <h6>Cantidad de Cuentas: {{listaCorreos.length}}</h6>
+          <h6>Monto Total: $ {{listaCorreos.length * 15}}</h6>
         </div>
         <div class="q-pa-md q-mx-auto" style="max-width: 330px">
           <q-input
@@ -35,7 +35,7 @@ import { LocalStorage } from 'quasar'
 
 export default defineComponent({
     setup() {
-      const listaCorreos = LocalStorage.getItem('listaCorreos') || []
+      const listaCorreos = LocalStorage.getItem('emails') || []
       const codigo_trans = ref('')
 
       return {

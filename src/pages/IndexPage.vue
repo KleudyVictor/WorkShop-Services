@@ -53,7 +53,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, Ref } from 'vue';
-import { LocalStorage } from 'quasar';
+import { LocalStorage, useQuasar } from 'quasar';
 
 const columns = [
   {
@@ -68,6 +68,7 @@ const columns = [
 
 export default defineComponent({
   setup() {
+    const $q = useQuasar();
     const email: Ref<string> = ref('');
     const rows: Ref<any[]> = ref([]);
     const loading: Ref<boolean> = ref(false);
@@ -85,6 +86,14 @@ export default defineComponent({
         console.log(listaCorreos.value);
         email.value = '';
       }
+      else {
+        $q.notify({
+          message: 'No se puede agregar mas de 5 correos',
+          color: 'negative',
+          position: 'top',
+        });
+      }
+
     };
 
     const removeRow = (index: number) => {
