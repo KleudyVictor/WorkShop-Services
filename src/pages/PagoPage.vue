@@ -18,12 +18,17 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
+import { LocalStorage } from 'quasar'
 
 export default defineComponent({
     setup() {
-        return{
-          codigo_trans: ref('')
-        }
+      const listaCorreos = LocalStorage.getItem('listaCorreos') || []
+      const codigo_trans = ref('')
+
+      return {
+        listaCorreos,
+        codigo_trans
+      }
     },
 })
 </script>
