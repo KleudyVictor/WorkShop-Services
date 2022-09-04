@@ -1,5 +1,5 @@
 <template>
-  <div class="q-pa-md fit row wrap justify-center items-start content-start">
+  <div class="q-pa-md fit row wrap justify-center items-start content-start" v-if="cantidadDisponible > 0">
     <q-table
       class="my-table"
       title="Treats"
@@ -22,6 +22,7 @@
             />
           </template>
         </q-input>
+        <text-h3 class="q-ml-md">Disponible: {{cantidadDisponible}}</text-h3>
 
         <q-space />
       </template>
@@ -52,8 +53,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, Ref } from 'vue';
+import { defineComponent, ref, Ref, onMounted } from 'vue';
 import { LocalStorage, useQuasar } from 'quasar';
+import axios from 'axios';
 
 const columns = [
   {
@@ -74,6 +76,23 @@ export default defineComponent({
     const loading: Ref<boolean> = ref(false);
     const filter: Ref<string> = ref('');
     const listaCorreos: Ref<any[]> = ref([]);
+    const cantidadDisponible: Ref<number> = ref(0);
+
+    onMounted(async () => {
+      setInterval(async () => {
+        const response = await axios.get(
+          'https://tuenvio.followvip.tech/pedido/',
+          {
+            headers: {
+              accept: 'application/json',
+            },
+          }
+        );
+        cantidadDisponible.value = response.data.cantidad_pedidos;
+      }, 2000);
+      LocalStorage.clear();
+    }
+    );
 
     const addRow = () => {
       if (email.value && rows.value.length < 5) {
@@ -85,15 +104,13 @@ export default defineComponent({
         LocalStorage.set('emails', listaCorreos.value);
         console.log(listaCorreos.value);
         email.value = '';
-      }
-      else {
+      } else {
         $q.notify({
           message: 'No se puede agregar mas de 5 correos',
           color: 'negative',
           position: 'top',
         });
       }
-
     };
 
     const removeRow = (index: number) => {
@@ -107,6 +124,7 @@ export default defineComponent({
       rows,
       loading,
       filter,
+      cantidadDisponible,
       addRow,
       removeRow,
     };
