@@ -75,7 +75,7 @@ export default defineComponent({
     const listaCorreos: Ref<any[]> = ref([]);
 
     const addRow = () => {
-      if (email.value) {
+      if (email.value && rows.value.length < 5) {
         rows.value.push({
           correo: email.value,
           acciones: '',
