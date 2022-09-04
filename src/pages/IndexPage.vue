@@ -34,7 +34,7 @@
               dense
               color="negative"
               :disable="loading"
-              @click="removeRow"
+              @click="removeRow(props.rowIndex)"
             />
           </div>
         </q-td>
@@ -88,6 +88,7 @@ export default defineComponent({
     };
 
     const removeRow = (index: number) => {
+      console.log(index);
       rows.value.splice(index, 1);
     };
 

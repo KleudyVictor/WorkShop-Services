@@ -20,10 +20,14 @@
 import { defineComponent, ref } from 'vue'
 import { LocalStorage } from 'quasar'
 
+const listaQR = [
+  
+
 export default defineComponent({
     setup() {
       const listaCorreos = LocalStorage.getItem('listaCorreos') || []
       const codigo_trans = ref('')
+
 
       return {
         listaCorreos,
