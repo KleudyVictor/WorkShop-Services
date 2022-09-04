@@ -25,23 +25,25 @@
       />
     </div>
   </div>
+
+
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
-import { LocalStorage } from 'quasar';
+import { defineComponent, ref } from 'vue'
+import { LocalStorage } from 'quasar'
 
 export default defineComponent({
-  setup() {
-    const listaCorreos = LocalStorage.getItem('listaCorreos') || [];
-    const codigo_trans = ref('');
+    setup() {
+      const listaCorreos = LocalStorage.getItem('listaCorreos') || []
+      const codigo_trans = ref('')
 
-    return {
-      listaCorreos,
-      codigo_trans,
-    };
-  },
-});
+      return {
+        listaCorreos,
+        codigo_trans
+      }
+    },
+})
 </script>
 
 <style lang="sass" scoped>
