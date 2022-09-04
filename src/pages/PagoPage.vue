@@ -2,7 +2,7 @@
   <div class="q-pa-md fit row wrap justify-center items-start content-start">
     <q-card class="my-card text-center text-bold">
       <q-card-section>
-        <q-img width="300px" height="300px" src="../assets/qr/1.jpg" />
+        <q-img width="300px" height="300px" :src="qr[listaCorreos.length-1]" />
         <div class="q-pa-md">
           <h6>Cantidad de Cuentas: {{listaCorreos.length}}</h6>
           <h6>Monto Total: $ {{listaCorreos.length * 15}}</h6>
@@ -32,15 +32,28 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 import { LocalStorage } from 'quasar'
+import axios from 'axios'
+
+const qr = [
+  '../assets/qr/1.jpg',
+  '../assets/qr/2.jpg',
+  '../assets/qr/3.jpg',
+  '../assets/qr/4.jpg',
+  '../assets/qr/5.jpg',
+]
 
 export default defineComponent({
     setup() {
       const listaCorreos = LocalStorage.getItem('emails') || []
       const codigo_trans = ref('')
+      const pedido = async () => {
+        console.log('')
+      }
 
       return {
         listaCorreos,
-        codigo_trans
+        codigo_trans,
+        qr
       }
     },
 })
