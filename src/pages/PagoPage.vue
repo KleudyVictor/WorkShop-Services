@@ -20,7 +20,8 @@
 import { defineComponent, ref } from 'vue'
 import { LocalStorage } from 'quasar'
 
-const listaQR = ['../../qr-50.jpg']
+const listaQR = [
+  
 
 export default defineComponent({
     setup() {
