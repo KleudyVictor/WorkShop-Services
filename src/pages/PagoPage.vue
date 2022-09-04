@@ -35,11 +35,11 @@ import { LocalStorage } from 'quasar'
 import axios from 'axios'
 
 const qr = [
-  '../assets/qr/1.jpg',
-  '../assets/qr/2.jpg',
-  '../assets/qr/3.jpg',
-  '../assets/qr/4.jpg',
-  '../assets/qr/5.jpg',
+  '../../src/assets/qr/1.jpg',
+  '../../src/assets/qr/2.jpg',
+  '../../src/assets/qr/3.jpg',
+  '../../src/assets/qr/4.jpg',
+  '../../src/assets/qr/5.jpg',
 ]
 
 export default defineComponent({
