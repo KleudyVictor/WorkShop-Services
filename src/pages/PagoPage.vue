@@ -77,7 +77,7 @@ export default defineComponent({
     const loading = ref(false);
     const pedido = async () => {
       try {
-        loading.value = true;
+        loading.value = true
         const response = await axios.post(
           'https://tuenvio.followvip.tech/pedido/',
           {
@@ -91,22 +91,23 @@ export default defineComponent({
             },
           }
         );
-        LocalStorage.clear();
-        $q.notify({
-          color: 'green-4',
-          textColor: 'white',
-          icon: 'check',
-          message: 'Pedido realizado con exito',
-        });
+        if (response.status === 200) {
+          LocalStorage.clear();
+          $q.notify({
+            color: 'green-4',
+            textColor: 'white',
+            icon: 'check',
+            message: 'Pedido realizado con exito',
+          });}
       } catch (error) {
         $q.notify({
           color: 'red-4',
           textColor: 'white',
           icon: 'check',
-          message: 'Error al realizar el pedido',
+          message: String(error),
         });
       }
-      loading.value = false;
+      loading.value = false
     };
 
     return {
