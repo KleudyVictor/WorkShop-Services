@@ -51,20 +51,7 @@ const qr = [
 export default defineComponent({
   setup() {
     const $q = useQuasar();
-    const cantidadDisponible = ref(0);
-    onMounted(async () => {
-      setInterval(async () => {
-        const response = await axios.get(
-          'https://tuenvio.followvip.tech/pedido/',
-          {
-            headers: {
-              accept: 'application/json',
-            },
-          }
-        );
-        cantidadDisponible.value = response.data.cantidad_pedidos;
-      }, 1000);
-    });
+    const cantidadDisponible = ref(LocalStorage.getItem('cantidad'));
     const listaCorreos = ref(LocalStorage.getItem('emails') || []);
     const codigo_trans = ref('');
     const pedido = async () => {
