@@ -36,7 +36,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted } from 'vue';
+import { defineComponent, ref} from 'vue';
 import { LocalStorage, useQuasar } from 'quasar';
 import axios from 'axios';
 
