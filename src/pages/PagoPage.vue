@@ -6,14 +6,42 @@
     <q-card class="my-card text-center text-bold">
       <q-card-section>
         <q-img
+          v-if="listaCorreos.length === 1"
           width="300px"
           height="300px"
-          :src="qr[listaCorreos.length - 1]"
+          src="../assets/1.jpg"
         />
+        <q-img
+          v-if="listaCorreos.length === 2"
+          width="300px"
+          height="300px"
+          src="../assets/2.jpg"
+        />
+        <q-img
+          v-if="listaCorreos.length === 3"
+          width="300px"
+          height="300px"
+          src="../assets/3.jpg"
+        />
+        <q-img
+          v-if="listaCorreos.length === 4"
+          width="300px"
+          height="300px"
+          src="../assets/4.jpg"
+        />
+        <q-img
+          v-if="listaCorreos.length === 5"
+          width="300px"
+          height="300px"
+          src="../assets/5.jpg"
+        />
+
         <div class="q-pa-md">
-          <h6>Cantidad de Cuentas: {{ listaCorreos.length }}</h6>
+          <p class="text-positive">Disponible: {{ cantidadDisponible }}</p>
+          <p>Cantidad de Cuentas: {{ listaCorreos.length }}</p>
+          <q-separator/>
           <h6>Monto Total: $ {{ listaCorreos.length * 15 }}</h6>
-          <h6>Disponible: {{ cantidadDisponible }}</h6>
+
         </div>
         <div class="q-pa-md q-mx-auto" style="max-width: 330px">
           <q-input
@@ -23,16 +51,17 @@
           />
         </div>
       </q-card-section>
-    </q-card>
-    <div class="q-pa-md">
+      <div class="q-pa-md text-center">
       <q-btn
         outline
         style="color: goldenrod"
         label="Confirmar Pago"
         @click="pedido"
       />
-    </div>
+      </div>
+    </q-card>
   </div>
+
 </template>
 
 <script lang="ts">
@@ -40,13 +69,6 @@ import { defineComponent, ref} from 'vue';
 import { LocalStorage, useQuasar } from 'quasar';
 import axios from 'axios';
 
-const qr = [
-  '../../src/assets/qr/1.jpg',
-  '../../src/assets/qr/2.jpg',
-  '../../src/assets/qr/3.jpg',
-  '../../src/assets/qr/4.jpg',
-  '../../src/assets/qr/5.jpg',
-];
 
 export default defineComponent({
   setup() {
@@ -91,7 +113,6 @@ export default defineComponent({
       cantidadDisponible,
       listaCorreos,
       codigo_trans,
-      qr,
       pedido
     };
   },

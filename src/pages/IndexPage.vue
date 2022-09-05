@@ -22,7 +22,7 @@
             />
           </template>
         </q-input>
-        <text-h3 class="q-ml-md">Disponible: {{cantidadDisponible}}</text-h3>
+        <text-h3 class="q-ml-md q-mt-sm text-positive">Disponible: {{cantidadDisponible}}</text-h3>
 
         <q-space />
       </template>
