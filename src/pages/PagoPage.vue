@@ -51,7 +51,7 @@ const qr = [
 export default defineComponent({
   setup() {
     const $q = useQuasar();
-    const cantidadDisponible = ref(LocalStorage.getItem('cantidad'));
+    const cantidadDisponible = ref(LocalStorage.getItem('cantidadDisponible'));
     const listaCorreos = ref(LocalStorage.getItem('emails') || []);
     const codigo_trans = ref('');
     const pedido = async () => {
