@@ -39,9 +39,8 @@
         <div class="q-pa-md">
           <p class="text-positive">Disponible: {{ cantidadDisponible }}</p>
           <p>Cantidad de Cuentas: {{ listaCorreos.length }}</p>
-          <q-separator/>
+          <q-separator />
           <h6>Monto Total: $ {{ listaCorreos.length * 15 }}</h6>
-
         </div>
         <div class="q-pa-md q-mx-auto" style="max-width: 330px">
           <q-input
@@ -52,23 +51,22 @@
         </div>
       </q-card-section>
       <div class="q-pa-md text-center">
-      <q-btn
-        outline
-        style="color: goldenrod"
-        label="Confirmar Pago"
-        @click="pedido"
-      />
+        <q-btn
+          outline
+          :loading="loading"
+          style="color: goldenrod"
+          label="Confirmar Pago"
+          @click="pedido"
+        />
       </div>
     </q-card>
   </div>
-
 </template>
 
 <script lang="ts">
-import { defineComponent, ref} from 'vue';
+import { defineComponent, ref } from 'vue';
 import { LocalStorage, useQuasar } from 'quasar';
 import axios from 'axios';
-
 
 export default defineComponent({
   setup() {
@@ -76,44 +74,56 @@ export default defineComponent({
     const cantidadDisponible = ref(LocalStorage.getItem('cantidadDisponible'));
     const listaCorreos = ref(LocalStorage.getItem('emails') || []);
     const codigo_trans = ref('');
+    const loading = ref(false);
     const pedido = async () => {
-      const response = await axios.post(
-        'https://tuenvio.followvip.tech/pedido/',
-        {
-          id_pago: codigo_trans.value,
-          lista_correos: listaCorreos.value,
-        },
-        {
-          headers: {
-            accept: 'application/json',
-            'Content-Type': 'application/json',
+      try {
+        loading.value = true
+        const response = await axios.post(
+          'https://tuenvio.followvip.tech/pedido/',
+          {
+            id_pago: codigo_trans.value,
+            lista_correos: listaCorreos.value,
           },
+          {
+            headers: {
+              accept: 'application/json',
+              'Content-Type': 'application/json',
+            },
+          }
+        );
+        if (response.status === 200) {
+          LocalStorage.clear();
+          $q.notify({
+            color: 'green-4',
+            textColor: 'white',
+            icon: 'check',
+            message: 'Pedido realizado con exito',
+          });
+        } else {
+          $q.notify({
+            color: 'red-4',
+            textColor: 'white',
+            icon: 'check',
+            message: 'Error al realizar el pedido',
+          });
         }
-      );
-      if (response.status === 200) {
-        LocalStorage.clear();
-        $q.notify({
-          color: 'green-4',
-          textColor: 'white',
-          icon: 'check',
-          message: 'Pedido realizado con exito',
-        });
-      }
-      else {
+      } catch (error) {
         $q.notify({
           color: 'red-4',
           textColor: 'white',
           icon: 'check',
-          message: 'Error al realizar el pedido',
+          message: String(error),
         });
       }
+      loading.value = false
     };
 
     return {
       cantidadDisponible,
       listaCorreos,
       codigo_trans,
-      pedido
+      loading,
+      pedido,
     };
   },
 });
