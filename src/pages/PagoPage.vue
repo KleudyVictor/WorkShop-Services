@@ -99,12 +99,12 @@ export default defineComponent({
             icon: 'check',
             message: 'Pedido realizado con exito',
           });}
-      } catch (error) {
+      } catch (error: any) {
         $q.notify({
           color: 'red-4',
           textColor: 'white',
           icon: 'check',
-          message: String(error),
+          message: String(error.response.data.detail),
         });
       }
       loading.value = false
