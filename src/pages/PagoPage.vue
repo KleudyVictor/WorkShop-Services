@@ -93,7 +93,7 @@ export default defineComponent({
             },
           }
         );
-        if (response.status === 200) {
+        if (response.status === 201) {
           LocalStorage.clear();
           $q.notify({
             color: 'green-4',
