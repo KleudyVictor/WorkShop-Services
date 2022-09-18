@@ -12,6 +12,7 @@
           WorkShop-Services
         </q-toolbar-title>
         <!--<q-btn icon="help_outline" class="text-right" flat round to="/ayuda"/>-->
+        <q-btn icon="help" flat round size="md" to="/ayuda"/>
         <q-btn
           class="q-mr-xs justify-end"
           flat
@@ -27,7 +28,6 @@
     <q-card class="my-card text-center">
       <q-card-section class="text-center text-h4 text-bold">
         <span class="text-pink">Work</span><span class="text-amber">Shop</span><span class="text-blue-7">Services</span>
-        <q-btn icon="help" flat rounded size="lg" color="pink" to="/ayuda"/>
       </q-card-section>
     </q-card>
   </div>
