@@ -67,10 +67,12 @@
 import { defineComponent, ref } from 'vue';
 import { LocalStorage, useQuasar } from 'quasar';
 import axios from 'axios';
+import { useRouter } from 'vue-router';
 
 export default defineComponent({
   setup() {
     const $q = useQuasar();
+    const router = useRouter();
     const cantidadDisponible = ref(LocalStorage.getItem('cantidadDisponible'));
     const listaCorreos = ref(LocalStorage.getItem('emails') || []);
     const codigo_trans = ref('');
@@ -91,14 +93,17 @@ export default defineComponent({
             },
           }
         );
-        if (response.status === 200) {
+        if (response.status === 201) {
           LocalStorage.clear();
           $q.notify({
             color: 'green-4',
             textColor: 'white',
             icon: 'check',
             message: 'Pedido realizado con exito',
-          });}
+          });
+          router.push('/pago_exitoso');
+          }
+
       } catch (error: any) {
         $q.notify({
           color: 'red-4',
