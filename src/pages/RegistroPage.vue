@@ -1,0 +1,108 @@
+<template>
+  <div class="q-pa-md fit row wrap justify-center items-start content-start">
+    <q-card class="my-card">
+      <div class="q-pa-md text-center">
+        <h5>Registro de Cuentas</h5>
+      </div>
+      <q-separator />
+
+      <div class="q-pa-md text-center text-green">
+        <p>Suerte en su compra de combos</p>
+      </div>
+      <q-form @submit="onSubmit">
+        <div
+          class="q-mx-auto q-pa-md q-gutter-y-md column"
+          style="max-width: 300px"
+        >
+          <q-input filled label="Correo" v-model="email" type="email" :rules="[ val => val && val.length > 0 || 'Campo obligatorio']">
+          </q-input>
+
+          <q-input
+            v-model="password"
+            label="Contraseña"
+            filled
+            :type="isPwd ? 'password' : 'text'"
+            :rules="[ val => val && val.length > 0 || 'Campo obligatorio']"
+          >
+            <template v-slot:append>
+              <q-icon
+                :name="isPwd ? 'visibility_off' : 'visibility'"
+                class="cursor-pointer"
+                @click="isPwd = !isPwd"
+              />
+            </template>
+          </q-input>
+        </div>
+
+        <div class="text-center q-pa-md">
+          <q-btn
+            color="primary"
+            type="submit"
+            label="Registrar Cuenta"
+            @click="registrar"
+          />
+        </div>
+      </q-form>
+      <div></div>
+    </q-card>
+  </div>
+</template>
+
+<script lang="ts">
+import { defineComponent, ref } from 'vue';
+import axios from 'axios';
+import { useQuasar } from 'quasar';
+
+export default defineComponent({
+  setup() {
+    const $q = useQuasar();
+    const email = ref('');
+    const password = ref('');
+    const isPwd = ref(true);
+    const registrar = async () => {
+      try {
+        const response = await axios.post(
+          'https://tuenvio.followvip.tech/user/',
+          // '{\n  "email": "client@gmail.com",\n  "password": "12345678"\n}',
+          {
+            email: email.value,
+            password: password.value,
+          },
+          {
+            headers: {
+              accept: 'application/json',
+              'Content-Type': 'application/json',
+            },
+          }
+        );
+        if (response.status === 200) {
+          $q.notify({
+            message: 'Cuenta Registrada',
+            color: 'positive',
+            position: 'top',
+          });
+        }
+      } catch (error: any) {
+        $q.notify({
+          color: 'red-4',
+          textColor: 'white',
+          icon: 'check',
+          message: String(error.response.data.detail),
+        });
+      }
+    };
+    return {
+      email,
+      password,
+      isPwd,
+      registrar,
+    };
+  },
+});
+</script>
+
+<style lang="sass" scoped>
+.my-card
+  width: 100%
+  max-width: 800px
+</style>
