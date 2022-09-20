@@ -26,7 +26,7 @@
     <q-page-container>
       <div class="q-pa-md fit row wrap justify-center items-start content-start">
     <q-card class="my-card text-center">
-      <q-card-section class="text-center text-h4 text-bold">
+      <q-card-section class="text-center text-h5 text-bold">
         <span class="text-pink">Work</span><span class="text-amber">Shop</span><span class="text-blue-7">Services</span>
       </q-card-section>
     </q-card>

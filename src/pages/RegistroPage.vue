@@ -36,9 +36,17 @@
 
         <div class="text-center q-pa-md">
           <q-btn
+            class="q-ma-md"
+            color="negative"
+            type="submit"
+            label="Atras"
+            to="/"
+          />
+          <q-btn
+            class="q-ma-md"
             color="primary"
             type="submit"
-            label="Registrar Cuenta"
+            label="Registrar"
             @click="registrar"
           />
         </div>
