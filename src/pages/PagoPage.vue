@@ -40,7 +40,7 @@
           <p class="text-positive">Disponible: {{ cantidadDisponible }}</p>
           <p>Cantidad de Cuentas: {{ listaCorreos.length }}</p>
           <q-separator />
-          <h6>Monto Total: $ {{ listaCorreos.length * 15 }}</h6>
+          <h6>Monto Total: $ {{ listaCorreos.length * 30 }}</h6>
         </div>
         <div class="q-pa-md q-mx-auto" style="max-width: 330px">
           <q-input
