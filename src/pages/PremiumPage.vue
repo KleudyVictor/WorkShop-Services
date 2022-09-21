@@ -96,7 +96,7 @@ export default defineComponent({
         );
         cantidadDisponible.value = response.data.cantidad_pedidos;
         LocalStorage.set('cantidadDisponible', cantidadDisponible.value);
-      }, 60000);
+      }, 10000);
       LocalStorage.clear();
     }
     );
