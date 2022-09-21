@@ -82,24 +82,25 @@ export default defineComponent({
     const loading: Ref<boolean> = ref(false);
     const filter: Ref<string> = ref('');
     const listaCorreos: Ref<any[]> = ref([]);
-    const cantidadDisponible: Ref<number> = ref(0);
+    const cantidadDisponible: Ref<number> = ref(200);
+    LocalStorage.set('cantidadDisponible', cantidadDisponible.value);
 
-    onMounted(async () => {
-      setInterval(async () => {
-        const response = await axios.get(
-          'https://tuenvio.followvip.tech/pedido/',
-          {
-            headers: {
-              accept: 'application/json',
-            },
-          }
-        );
-        cantidadDisponible.value = response.data.cantidad_pedidos;
-        LocalStorage.set('cantidadDisponible', cantidadDisponible.value);
-      }, 10000);
-      LocalStorage.clear();
-    }
-    );
+    // onMounted(async () => {
+    //   setInterval(async () => {
+    //     const response = await axios.get(
+    //       'https://tuenvio.followvip.tech/pedido/',
+    //       {
+    //         headers: {
+    //           accept: 'application/json',
+    //         },
+    //       }
+    //     );
+    //     cantidadDisponible.value = response.data.cantidad_pedidos;
+    //     LocalStorage.set('cantidadDisponible', cantidadDisponible.value);
+    //   }, 1000000);
+    //   LocalStorage.clear();
+    // }
+    // );
 
     const addRow = () => {
       if (email.value && rows.value.length < 5) {
