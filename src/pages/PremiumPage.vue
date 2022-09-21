@@ -1,5 +1,5 @@
 <template>
-  <div class="q-pa-md fit row wrap justify-center items-start content-start" v-if="cantidadDisponible > 0">
+  <div class="q-pa-md fit row wrap justify-center items-start content-start">
     <q-table
       class="my-table"
       title="Treats"
