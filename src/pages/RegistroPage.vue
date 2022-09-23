@@ -7,7 +7,7 @@
       <q-separator />
 
       <div class="q-pa-md text-center text-green">
-        <p>Suerte en su compra de combos</p>
+        <h6>Suerte en su compra de combos</h6>
       </div>
       <q-form @submit="onSubmit">
         <div
@@ -60,6 +60,10 @@
       </div>
 
       <q-separator />
+
+      <div class="q-pa-md text-center text-blue">
+        <h6>Si tiene algun problema con su cuenta verifique su cuenta o cambie su contraseña</h6>
+      </div>
 
       <div
         class="q-mx-auto q-pa-md q-gutter-y-md column"
