@@ -51,13 +51,18 @@
         </div>
 
         <div class="q-pa-md q-mx-auto" style="max-width: 330px">
-        <q-input filled v-model="userTelegram" label="Usuario de Telegram" :readonly="readonly" :disable="disable">
-        <template v-slot:prepend>
-          <q-icon name="telegram" />
-        </template>
-      </q-input>
-      </div>
-
+          <q-input
+            filled
+            v-model="userTelegram"
+            label="Usuario de Telegram"
+            :readonly="readonly"
+            :disable="disable"
+          >
+            <template v-slot:prepend>
+              <q-icon name="telegram" />
+            </template>
+          </q-input>
+        </div>
       </q-card-section>
       <div class="q-pa-md text-center">
         <q-btn
@@ -90,33 +95,42 @@ export default defineComponent({
     const loading = ref(false);
     const pedido = async () => {
       try {
-        loading.value = true
-        setTimeout(()=>loading.value=false, 60000)
-        const response = await axios.post(
-          'https://tuenvio.followvip.tech/pedido/',
-          {
-            id_pago: codigo_trans.value,
-            user_id: userTelegram.value,
-            lista_correos: listaCorreos.value,
-          },
-          {
-            headers: {
-              accept: 'application/json',
-              'Content-Type': 'application/json',
+        if (codigo_trans.value !== '' && userTelegram.value !== '') {
+          loading.value = true;
+          setTimeout(() => (loading.value = false), 60000);
+          const response = await axios.post(
+            'https://tuenvio.followvip.tech/pedido/',
+            {
+              id_pago: codigo_trans.value,
+              user_id: userTelegram.value,
+              lista_correos: listaCorreos.value,
             },
+            {
+              headers: {
+                accept: 'application/json',
+                'Content-Type': 'application/json',
+              },
+            }
+          );
+          if (response.status === 201) {
+            LocalStorage.clear();
+            $q.notify({
+              color: 'green-4',
+              textColor: 'white',
+              icon: 'check',
+              message: 'Pedido realizado con exito',
+            });
+            router.push('/pago_exitoso');
           }
-        );
-        if (response.status === 201) {
-          LocalStorage.clear();
+        }
+        else {
           $q.notify({
-            color: 'green-4',
+            color: 'red-4',
             textColor: 'white',
-            icon: 'check',
-            message: 'Pedido realizado con exito',
+            icon: 'warning',
+            message: 'Debe llenar todos los campos',
           });
-          router.push('/pago_exitoso');
-          }
-
+        }
       } catch (error: any) {
         $q.notify({
           color: 'red-4',
