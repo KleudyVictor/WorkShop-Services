@@ -44,11 +44,20 @@
         </div>
         <div class="q-pa-md q-mx-auto" style="max-width: 330px">
           <q-input
-            standout
+            filled
             v-model="codigo_trans"
             label="Codigo de Transaccion"
           />
         </div>
+
+        <div class="q-pa-md q-mx-auto" style="max-width: 330px">
+        <q-input filled v-model="user" label="Usuario de Telegram" :readonly="readonly" :disable="disable">
+        <template v-slot:prepend>
+          <q-icon name="telegram" />
+        </template>
+      </q-input>
+      </div>
+
       </q-card-section>
       <div class="q-pa-md text-center">
         <q-btn
@@ -71,6 +80,7 @@ import { useRouter } from 'vue-router';
 
 export default defineComponent({
   setup() {
+    const user: Ref<string> = ref('');
     const $q = useQuasar();
     const router = useRouter();
     const cantidadDisponible = ref(LocalStorage.getItem('cantidadDisponible'));
@@ -116,6 +126,7 @@ export default defineComponent({
     };
 
     return {
+      user,
       cantidadDisponible,
       listaCorreos,
       codigo_trans,

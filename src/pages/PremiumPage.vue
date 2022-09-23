@@ -42,13 +42,8 @@
       </template>
     </q-table>
 
-  <q-card class="my-card">
-    <q-input filled v-model="user" label="Usuario de Telegram" :readonly="readonly" :disable="disable">
-        <template v-slot:prepend>
-          <q-icon name="telegram" />
-        </template>
-      </q-input>
-  </q-card>
+
+
   </div>
   <div class="text-center">
     <q-btn
@@ -84,7 +79,7 @@ const columns = [
 
 export default defineComponent({
   setup() {
-    const user: Ref<string> = ref('');
+
     const $q = useQuasar();
     const email: Ref<string> = ref('');
     const rows: Ref<any[]> = ref([]);
@@ -135,7 +130,6 @@ export default defineComponent({
     };
 
     return {
-      user,
       columns,
       email,
       rows,
