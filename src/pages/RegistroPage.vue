@@ -1,6 +1,6 @@
 <template>
   <div class="q-pa-md fit row wrap justify-center items-start content-start">
-    <q-card class="my-card">
+    <q-card class="q-ma-sm my-card">
       <div class="q-pa-md text-center">
         <h5>Registro de Cuentas</h5>
       </div>
@@ -52,6 +52,63 @@
         </div>
       </q-form>
       <div></div>
+    </q-card>
+
+    <q-card class="q-ma-sm my-card">
+      <div class="q-pa-md text-center">
+        <h5>Verificar Cuenta</h5>
+      </div>
+
+      <q-separator />
+
+      <div
+        class="q-mx-auto q-pa-md q-gutter-y-md column"
+        style="max-width: 300px"
+      >
+        <q-input
+          filled
+          label="Correo a Verificar"
+          v-model="email_verificacion"
+          type="email"
+          :rules="[(val) => (val && val.length > 0) || 'Campo obligatorio']"
+        >
+          <template v-slot:after>
+            <q-btn round dense flat icon="search" />
+          </template>
+        </q-input>
+
+        <q-chip
+          class="q-pa-lg glossy"
+          square
+          color="positive"
+          text-color="white"
+          icon="verified"
+        >
+          <h6>CUENTA PREMIUM</h6>
+        </q-chip>
+
+        <q-chip
+          class="q-pa-lg glossy"
+          square
+          color="negative"
+          text-color="white"
+          icon="highlight_off"
+        >
+          <h6>CUENTA SIN PAGAR</h6>
+        </q-chip>
+
+        <q-input
+          v-model="password_change"
+          label="Nueva Contraseña"
+          filled
+          :type="isPwd ? 'password' : 'text'"
+          :rules="[(val) => (val && val.length > 0) || 'Campo obligatorio']"
+        >
+          <template v-slot:after>
+            <q-btn round dense flat icon="send" />
+          </template>
+        </q-input>
+      </div>
     </q-card>
   </div>
 </template>
