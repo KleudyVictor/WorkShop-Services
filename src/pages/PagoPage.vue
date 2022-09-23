@@ -51,7 +51,7 @@
         </div>
 
         <div class="q-pa-md q-mx-auto" style="max-width: 330px">
-        <q-input filled v-model="user" label="Usuario de Telegram" :readonly="readonly" :disable="disable">
+        <q-input filled v-model="userTelegram" label="Usuario de Telegram" :readonly="readonly" :disable="disable">
         <template v-slot:prepend>
           <q-icon name="telegram" />
         </template>
@@ -73,7 +73,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { defineComponent, ref, Ref } from 'vue';
 import { LocalStorage, useQuasar } from 'quasar';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
@@ -86,14 +86,17 @@ export default defineComponent({
     const cantidadDisponible = ref(LocalStorage.getItem('cantidadDisponible'));
     const listaCorreos = ref(LocalStorage.getItem('emails') || []);
     const codigo_trans = ref('');
+    const userTelegram = ref('');
     const loading = ref(false);
     const pedido = async () => {
       try {
         loading.value = true
+        setTimeout(()=>loading.value=false, 60000)
         const response = await axios.post(
           'https://tuenvio.followvip.tech/pedido/',
           {
             id_pago: codigo_trans.value,
+            user_id: userTelegram.value,
             lista_correos: listaCorreos.value,
           },
           {
@@ -122,7 +125,6 @@ export default defineComponent({
           message: String(error.response.data.detail),
         });
       }
-      loading.value = false
     };
 
     return {
