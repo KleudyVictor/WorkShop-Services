@@ -14,7 +14,13 @@
           class="q-mx-auto q-pa-md q-gutter-y-md column"
           style="max-width: 300px"
         >
-          <q-input filled label="Correo" v-model="email" type="email" :rules="[ val => val && val.length > 0 || 'Campo obligatorio']">
+          <q-input
+            filled
+            label="Correo"
+            v-model="email"
+            type="email"
+            :rules="[(val) => (val && val.length > 0) || 'Campo obligatorio']"
+          >
           </q-input>
 
           <q-input
@@ -22,7 +28,7 @@
             label="Contraseña"
             filled
             :type="isPwd ? 'password' : 'text'"
-            :rules="[ val => val && val.length > 0 || 'Campo obligatorio']"
+            :rules="[(val) => (val && val.length > 0) || 'Campo obligatorio']"
           >
             <template v-slot:append>
               <q-icon
@@ -62,7 +68,10 @@
       <q-separator />
 
       <div class="q-pa-md text-center text-blue">
-        <h6>Si tiene algun problema con su cuenta verifique su cuenta o cambie su contraseña</h6>
+        <h6>
+          Si tiene algun problema con su cuenta verifique su cuenta o cambie su
+          contraseña
+        </h6>
       </div>
 
       <div
@@ -77,7 +86,7 @@
           :rules="[(val) => (val && val.length > 0) || 'Campo obligatorio']"
         >
           <template v-slot:after>
-            <q-btn round dense flat icon="search" />
+            <q-btn round dense flat icon="search" @click="validarCuenta" />
           </template>
         </q-input>
 
@@ -87,6 +96,7 @@
           color="positive"
           text-color="white"
           icon="verified"
+          v-if="verificada"
         >
           <h6>CUENTA PREMIUM</h6>
         </q-chip>
@@ -97,6 +107,7 @@
           color="negative"
           text-color="white"
           icon="highlight_off"
+          v-if="noverficada"
         >
           <h6>CUENTA SIN PAGAR</h6>
         </q-chip>
@@ -160,10 +171,81 @@ export default defineComponent({
         });
       }
     };
+    const email_verificacion = ref('');
+    const password_change = ref('');
+    const verificada = ref(false);
+    const noverficada = ref(false);
+    const validarCuenta = async () => {
+      try {
+        const response = await axios.get(
+          `https://tuenvio.followvip.tech/user/${email_verificacion.value}`,
+          {
+            headers: {
+              accept: 'application/json',
+            },
+          }
+        );
+        if (response.status === 200) {
+          if (response.data.is_premium === true) {
+            verificada.value = true;
+            noverficada.value = false;
+          } else {
+            noverficada.value = true;
+            verificada.value = false;
+          }
+        }
+      } catch (error: any) {
+        $q.notify({
+          color: 'red-4',
+          textColor: 'white',
+          icon: 'check',
+          message: String(error.response.data.detail),
+        });
+      }
+    };
+    const actualizarContraseña = async () => {
+      try{
+      const response = await axios.put(
+        'https://tuenvio.followvip.tech/user/',
+        // '{\n  "email": "client@gmail.com",\n  "password": "12345678"\n}',
+        {
+          email: email_verificacion.value,
+          password: password_change.value,
+        },
+        {
+          headers: {
+            accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      if (response.status === 200) {
+        $q.notify({
+          message: 'Contraseña Actualizada',
+          color: 'positive',
+          position: 'top',
+        });
+      }
+    } catch (error: any) {
+      $q.notify({
+        color: 'red-4',
+        textColor: 'white',
+        icon: 'check',
+        message: String(error.response.data.detail),
+      });
+    };
+    };
+
     return {
       email,
       password,
       isPwd,
+      email_verificacion,
+      password_change,
+      verificada,
+      noverficada,
+      validarCuenta,
+      actualizarContraseña,
       registrar,
     };
   },

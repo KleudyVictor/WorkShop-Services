@@ -1,5 +1,5 @@
 <template>
-  <div class="q-pa-md fit row wrap justify-center items-start content-start">
+  <div class="q-pa-md fit row wrap justify-center items-start content-start" v-if="cantidadDisponible > 0">
     <q-table
       class="my-table"
       title="Treats"
@@ -91,25 +91,24 @@ export default defineComponent({
     const loading: Ref<boolean> = ref(false);
     const filter: Ref<string> = ref('');
     const listaCorreos: Ref<any[]> = ref([]);
-    const cantidadDisponible: Ref<number> = ref(200);
+    const cantidadDisponible: Ref<number> = ref(0);
     LocalStorage.set('cantidadDisponible', cantidadDisponible.value);
 
-    // onMounted(async () => {
-    //   setInterval(async () => {
-    //     const response = await axios.get(
-    //       'https://tuenvio.followvip.tech/pedido/',
-    //       {
-    //         headers: {
-    //           accept: 'application/json',
-    //         },
-    //       }
-    //     );
-    //     cantidadDisponible.value = response.data.cantidad_pedidos;
-    //     LocalStorage.set('cantidadDisponible', cantidadDisponible.value);
-    //   }, 1000000);
-    //   LocalStorage.clear();
-    // }
-    // );
+    onMounted(async () => {
+      LocalStorage.clear();
+      const response = await axios.get(
+          'https://tuenvio.followvip.tech/pedido/',
+          {
+            headers: {
+              accept: 'application/json',
+            },
+          }
+        );
+        cantidadDisponible.value = response.data.cantidad_pedidos;
+        LocalStorage.set('cantidadDisponible', cantidadDisponible.value);
+
+    }
+    );
 
     const addRow = () => {
       if (email.value && rows.value.length < 5) {
