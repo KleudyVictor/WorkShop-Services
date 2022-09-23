@@ -120,7 +120,7 @@
           :rules="[(val) => (val && val.length > 0) || 'Campo obligatorio']"
         >
           <template v-slot:after>
-            <q-btn round dense flat icon="send" />
+            <q-btn round dense flat icon="send" @click="actualizarContraseña"/>
           </template>
         </q-input>
       </div>
