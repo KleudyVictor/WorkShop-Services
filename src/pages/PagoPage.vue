@@ -55,8 +55,6 @@
             filled
             v-model="userTelegram"
             label="Usuario de Telegram"
-            :readonly="readonly"
-            :disable="disable"
           >
             <template v-slot:prepend>
               <q-icon name="telegram" />
