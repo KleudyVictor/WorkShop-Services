@@ -717,8 +717,7 @@ export default defineComponent({
       try {
         if (
           codigo_trans.value !== '' &&
-          userTelegram.value !== '' &&
-          listaUser.includes(userTelegram.value)
+          userTelegram.value !== ''
         ) {
           loading.value = true;
           setTimeout(() => (loading.value = false), 60000);
