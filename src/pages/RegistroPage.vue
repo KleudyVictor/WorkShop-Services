@@ -116,7 +116,7 @@
               dense
               flat
               icon="send"
-              @click="actualizarContraseña;"
+              @click="actualizarContraseña"
             />
           </template>
         </q-input>
