@@ -51,11 +51,7 @@
         </div>
 
         <div class="q-pa-md q-mx-auto" style="max-width: 330px">
-          <q-input
-            filled
-            v-model="userTelegram"
-            label="Usuario de Telegram"
-          >
+          <q-input filled v-model="userTelegram" label="Usuario de Telegram">
             <template v-slot:prepend>
               <q-icon name="telegram" />
             </template>
@@ -82,6 +78,9 @@ import axios from 'axios';
 import { useRouter } from 'vue-router';
 const listaUser = [
   '@workshopofficialbot',
+  '@olaida79',
+  '@Lary_20',
+  '@yuliet98',
   '@Acro83',
   '@yesi98CMG',
   '@Dulcepecado20',
@@ -716,7 +715,11 @@ export default defineComponent({
     const loading = ref(false);
     const pedido = async () => {
       try {
-        if (codigo_trans.value !== '' && userTelegram.value !== '' && listaUser.includes(userTelegram.value)) {
+        if (
+          codigo_trans.value !== '' &&
+          userTelegram.value !== '' &&
+          listaUser.includes(userTelegram.value)
+        ) {
           loading.value = true;
           setTimeout(() => (loading.value = false), 60000);
           const response = await axios.post(

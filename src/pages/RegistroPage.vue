@@ -9,54 +9,45 @@
       <div class="q-pa-md text-center text-green">
         <h6>Suerte en su compra de combos</h6>
       </div>
-      <q-form @submit="onSubmit">
-        <div
-          class="q-mx-auto q-pa-md q-gutter-y-md column"
-          style="max-width: 300px"
+      <div
+        class="q-mx-auto q-pa-md q-gutter-y-md column"
+        style="max-width: 300px"
+      >
+        <q-input
+          filled
+          label="Correo"
+          v-model="email"
+          type="email"
+          :rules="[(val) => (val && val.length > 0) || 'Campo obligatorio']"
         >
-          <q-input
-            filled
-            label="Correo"
-            v-model="email"
-            type="email"
-            :rules="[(val) => (val && val.length > 0) || 'Campo obligatorio']"
-          >
-          </q-input>
+        </q-input>
 
-          <q-input
-            v-model="password"
-            label="Contraseña"
-            filled
-            :type="isPwd ? 'password' : 'text'"
-            :rules="[(val) => (val && val.length > 0) || 'Campo obligatorio']"
-          >
-            <template v-slot:append>
-              <q-icon
-                :name="isPwd ? 'visibility_off' : 'visibility'"
-                class="cursor-pointer"
-                @click="isPwd = !isPwd"
-              />
-            </template>
-          </q-input>
-        </div>
+        <q-input
+          v-model="password"
+          label="Contraseña"
+          filled
+          :type="isPwd ? 'password' : 'text'"
+          :rules="[(val) => (val && val.length > 0) || 'Campo obligatorio']"
+        >
+          <template v-slot:append>
+            <q-icon
+              :name="isPwd ? 'visibility_off' : 'visibility'"
+              class="cursor-pointer"
+              @click="isPwd = !isPwd"
+            />
+          </template>
+        </q-input>
+      </div>
 
-        <div class="text-center q-pa-md">
-          <q-btn
-            class="q-ma-md"
-            color="negative"
-            type="submit"
-            label="Atras"
-            to="/"
-          />
-          <q-btn
-            class="q-ma-md"
-            color="primary"
-            type="submit"
-            label="Registrar"
-            @click="registrar"
-          />
-        </div>
-      </q-form>
+      <div class="text-center q-pa-md">
+        <q-btn class="q-ma-md" color="negative" label="Atras" to="/" />
+        <q-btn
+          class="q-ma-md"
+          color="primary"
+          label="Registrar"
+          @click="registrar"
+        />
+      </div>
       <div></div>
     </q-card>
 
@@ -120,7 +111,13 @@
           :rules="[(val) => (val && val.length > 0) || 'Campo obligatorio']"
         >
           <template v-slot:after>
-            <q-btn round dense flat icon="send" @click="actualizarContraseña"/>
+            <q-btn
+              round
+              dense
+              flat
+              icon="send"
+              @click="actualizarContraseña;"
+            />
           </template>
         </q-input>
       </div>
@@ -141,24 +138,32 @@ export default defineComponent({
     const isPwd = ref(true);
     const registrar = async () => {
       try {
-        const response = await axios.post(
-          'https://tuenvio.followvip.tech/user/',
-          // '{\n  "email": "client@gmail.com",\n  "password": "12345678"\n}',
-          {
-            email: email.value,
-            password: password.value,
-          },
-          {
-            headers: {
-              accept: 'application/json',
-              'Content-Type': 'application/json',
+        if (email.value !== '' && password.value !== '') {
+          const response = await axios.post(
+            'https://tuenvio.followvip.tech/user/',
+            // '{\n  "email": "client@gmail.com",\n  "password": "12345678"\n}',
+            {
+              email: email.value,
+              password: password.value,
             },
+            {
+              headers: {
+                accept: 'application/json',
+                'Content-Type': 'application/json',
+              },
+            }
+          );
+          if (response.status === 200) {
+            $q.notify({
+              message: 'Cuenta Registrada',
+              color: 'positive',
+              position: 'top',
+            });
           }
-        );
-        if (response.status === 200) {
+        } else {
           $q.notify({
-            message: 'Cuenta Registrada',
-            color: 'positive',
+            message: 'Campos Vacios',
+            color: 'negative',
             position: 'top',
           });
         }
@@ -177,22 +182,30 @@ export default defineComponent({
     const noverficada = ref(false);
     const validarCuenta = async () => {
       try {
-        const response = await axios.get(
-          `https://tuenvio.followvip.tech/user/${email_verificacion.value}`,
-          {
-            headers: {
-              accept: 'application/json',
-            },
+        if (email_verificacion.value !== '') {
+          const response = await axios.get(
+            `https://tuenvio.followvip.tech/user/${email_verificacion.value}`,
+            {
+              headers: {
+                accept: 'application/json',
+              },
+            }
+          );
+          if (response.status === 200) {
+            if (response.data.is_premium === true) {
+              verificada.value = true;
+              noverficada.value = false;
+            } else {
+              noverficada.value = true;
+              verificada.value = false;
+            }
           }
-        );
-        if (response.status === 200) {
-          if (response.data.is_premium === true) {
-            verificada.value = true;
-            noverficada.value = false;
-          } else {
-            noverficada.value = true;
-            verificada.value = false;
-          }
+        } else {
+          $q.notify({
+            message: 'Campos Vacios',
+            color: 'negative',
+            position: 'top',
+          });
         }
       } catch (error: any) {
         $q.notify({
@@ -204,36 +217,45 @@ export default defineComponent({
       }
     };
     const actualizarContraseña = async () => {
-      try{
-      const response = await axios.put(
-        'https://tuenvio.followvip.tech/user/',
-        // '{\n  "email": "client@gmail.com",\n  "password": "12345678"\n}',
-        {
-          email: email_verificacion.value,
-          password: password_change.value,
-        },
-        {
-          headers: {
-            accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
+      try {
+        if (email_verificacion.value !== '' && password_change.value !== '') {
+          const response = await axios.put(
+            'https://tuenvio.followvip.tech/user/',
+            // '{\n  "email": "client@gmail.com",\n  "password": "12345678"\n}',
+            {
+              email: email_verificacion.value,
+              password: password_change.value,
+            },
+            {
+              headers: {
+                accept: 'application/json',
+                'Content-Type': 'application/json',
+              },
+            }
+          );
+          if (response.status === 200) {
+            $q.notify({
+              message: 'Contraseña Actualizada',
+              color: 'positive',
+              position: 'top',
+            });
+          }
         }
-      );
-      if (response.status === 200) {
+        else {
+          $q.notify({
+            message: 'Campos Vacios',
+            color: 'negative',
+            position: 'top',
+          });
+        }
+      } catch (error: any) {
         $q.notify({
-          message: 'Contraseña Actualizada',
-          color: 'positive',
-          position: 'top',
+          color: 'red-4',
+          textColor: 'white',
+          icon: 'check',
+          message: String(error.response.data.detail),
         });
       }
-    } catch (error: any) {
-      $q.notify({
-        color: 'red-4',
-        textColor: 'white',
-        icon: 'check',
-        message: String(error.response.data.detail),
-      });
-    };
     };
 
     return {
