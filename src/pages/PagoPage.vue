@@ -768,6 +768,7 @@ export default defineComponent({
       cantidadDisponible,
       listaCorreos,
       codigo_trans,
+      userTelegram,
       loading,
       pedido,
     };
