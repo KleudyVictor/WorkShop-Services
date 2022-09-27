@@ -57,6 +57,24 @@
             </template>
           </q-input>
         </div>
+
+        <div
+          class="q-pa-md fit row wrap justify-center items-start content-start"
+        >
+          <div class="q-pa-md">
+            <q-btn
+              @click="handleCopy"
+              icon="content_copy"
+              label="Copia Aqui"
+              color="primary"
+            />
+          </div>
+          <div class="q-pa-md">
+            <a href="https://t.me/workshopofficialbot"
+              ><q-icon size="md" color="negative" name="smart_toy"
+            /></a>
+          </div>
+        </div>
       </q-card-section>
       <div class="q-pa-md text-center">
         <q-btn
@@ -73,7 +91,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, Ref } from 'vue';
-import { LocalStorage, useQuasar } from 'quasar';
+import { LocalStorage, useQuasar, copyToClipboard } from 'quasar';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
 const listaUser = [
@@ -715,10 +733,7 @@ export default defineComponent({
     const loading = ref(false);
     const pedido = async () => {
       try {
-        if (
-          codigo_trans.value !== '' &&
-          userTelegram.value !== ''
-        ) {
+        if (codigo_trans.value !== '' && userTelegram.value !== '') {
           loading.value = true;
           setTimeout(() => (loading.value = false), 60000);
           const response = await axios.post(
@@ -762,6 +777,15 @@ export default defineComponent({
         });
       }
     };
+    const handleCopy = () => {
+      copyToClipboard('Lista de Correos')
+        .then(() => {
+          // success!
+        })
+        .catch(() => {
+          // fail
+        });
+    };
 
     return {
       user,
@@ -771,6 +795,7 @@ export default defineComponent({
       userTelegram,
       loading,
       pedido,
+      handleCopy,
     };
   },
 });
