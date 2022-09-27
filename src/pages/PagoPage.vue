@@ -105,12 +105,12 @@ export default defineComponent({
       listaCorreos.value.forEach((correo) => {
         mensaje.value += correo + ',';
       });
+      mensaje.value = mensaje.value.slice(0, -1);
     };
     onMounted(() => {
       formateadorCorreos();
     });
     const handleCopy = () => {
-      mensaje.value = mensaje.value.slice(0, -1);
       copyToClipboard(mensaje.value)
         .then(() => {
           // success!
