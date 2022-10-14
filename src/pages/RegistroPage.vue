@@ -140,7 +140,7 @@ export default defineComponent({
       try {
         if (email.value !== '' && password.value !== '') {
           const response = await axios.post(
-            'https://api.workshopsofficial.com/user/',
+            'https://apk.workshopsofficial.com/user/',
             // '{\n  "email": "client@gmail.com",\n  "password": "12345678"\n}',
             {
               email: email.value,
@@ -184,7 +184,7 @@ export default defineComponent({
       try {
         if (email_verificacion.value !== '') {
           const response = await axios.get(
-            `https://api.workshopsofficial.com/user/${email_verificacion.value}`,
+            `https://apk.workshopsofficial.com/user/${email_verificacion.value}`,
             {
               headers: {
                 accept: 'application/json',
@@ -220,7 +220,7 @@ export default defineComponent({
       try {
         if (email_verificacion.value !== '' && password_change.value !== '') {
           const response = await axios.put(
-            'https://api.workshopsofficial.com/user/',
+            'https://apk.workshopsofficial.com/user/',
             // '{\n  "email": "client@gmail.com",\n  "password": "12345678"\n}',
             {
               email: email_verificacion.value,
