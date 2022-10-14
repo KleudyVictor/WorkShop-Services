@@ -92,7 +92,7 @@ export default defineComponent({
     onMounted(async () => {
       LocalStorage.clear();
       const response = await axios.get(
-          'https://api.workshopsofficial.com/pedido/',
+          'https://apk.workshopsofficial.com/pedido/',
           {
             headers: {
               accept: 'application/json',
