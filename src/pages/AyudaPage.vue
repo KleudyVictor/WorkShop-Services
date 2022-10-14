@@ -179,6 +179,8 @@
         <p style="font-size:medium">En la seccion de procesar pedidos encontraremos al lado del boton de añadir direccion, un pequeño boton verde <span class="text-green">Ayudar Amigos</span>.</p>
         <p style="font-size:medium">Nos llevará a una pagina donde hay un campo para agregar un token(token de la Cuenta Principal del amigo que ayudaras a pagar)</p>
         <p style="font-size:medium">Debajo hay un boton de cargar direccion luego de haver pegado el token, se verificara que el 1 este en el carrito azul y se procederá a realizar el pago.</p>
+        <h6>Como pago si cojo por mas de 1 cuenta?</h6>
+        <p style="font-size:medium">En caso de cojer por mas de una cuenta verificamos que cuentas son las que añadieron combos en Admistrar Cuentas, en caso de la Cuenta Principal procedemos de forma normal, si el combo esta en una de las restantes debemos cambiar de cuenta principal dentro de Administrar Cuentas, nos dirgimos a Ayudar Amigos dentro de Procesar Pedido, automaticamente este cargara el token de la cuenta principal actual, cargaremos direccion y ya podremos procesar el pedido sin nesecidad de cerrar sesion.</p>
       </div>
         </q-card>
       </div>
