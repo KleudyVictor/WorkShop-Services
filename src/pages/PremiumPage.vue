@@ -106,7 +106,7 @@ export default defineComponent({
     );
 
     const addRow = () => {
-      if (email.value && rows.value.length < 5) {
+      if (email.value && rows.value.length < 20) {
         rows.value.push({
           correo: email.value,
           acciones: '',

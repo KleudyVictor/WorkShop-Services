@@ -35,12 +35,102 @@
           height="300px"
           src="../assets/5.jpg"
         />
+        <q-img
+          v-if="listaCorreos.length === 6"
+          width="300px"
+          height="300px"
+          src="../assets/6.jpg"
+        />
+        <q-img
+          v-if="listaCorreos.length === 7"
+          width="300px"
+          height="300px"
+          src="../assets/7.jpg"
+        />
+        <q-img
+          v-if="listaCorreos.length === 8"
+          width="300px"
+          height="300px"
+          src="../assets/8.jpg"
+        />
+        <q-img
+          v-if="listaCorreos.length === 9"
+          width="300px"
+          height="300px"
+          src="../assets/9.jpg"
+        />
+        <q-img
+          v-if="listaCorreos.length === 10"
+          width="300px"
+          height="300px"
+          src="../assets/10.jpg"
+        />
+        <q-img
+          v-if="listaCorreos.length === 11"
+          width="300px"
+          height="300px"
+          src="../assets/11.jpg"
+        />
+        <q-img
+          v-if="listaCorreos.length === 12"
+          width="300px"
+          height="300px"
+          src="../assets/12.jpg"
+        />
+        <q-img
+          v-if="listaCorreos.length === 13"
+          width="300px"
+          height="300px"
+          src="../assets/13.jpg"
+        />
+        <q-img
+          v-if="listaCorreos.length === 14"
+          width="300px"
+          height="300px"
+          src="../assets/14.jpg"
+        />
+        <q-img
+          v-if="listaCorreos.length === 15"
+          width="300px"
+          height="300px"
+          src="../assets/15.jpg"
+        />
+        <q-img
+          v-if="listaCorreos.length === 16"
+          width="300px"
+          height="300px"
+          src="../assets/16.jpg"
+        />
+        <q-img
+          v-if="listaCorreos.length === 17"
+          width="300px"
+          height="300px"
+          src="../assets/17.jpg"
+        />
+        <q-img
+          v-if="listaCorreos.length === 18"
+          width="300px"
+          height="300px"
+          src="../assets/18.jpg"
+        />
+        <q-img
+          v-if="listaCorreos.length === 19"
+          width="300px"
+          height="300px"
+          src="../assets/19.jpg"
+        />
+        <q-img
+          v-if="listaCorreos.length === 20"
+          width="300px"
+          height="300px"
+          src="../assets/20.jpg"
+        />
 
         <div class="q-pa-md">
           <p class="text-positive">Disponible: {{ cantidadDisponible }}</p>
           <p>Cantidad de Cuentas: {{ listaCorreos.length }}</p>
           <q-separator />
-          <h6>Monto Total: $ {{ listaCorreos.length * 180 }}</h6>
+          <h6>Monto Total: $ {{ listaCorreos.length * 100 }}</h6>
         </div>
         <!-- <div class="q-pa-md q-mx-auto" style="max-width: 330px">
           <q-input
