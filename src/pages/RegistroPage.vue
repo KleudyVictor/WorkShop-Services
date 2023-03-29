@@ -153,7 +153,7 @@ export default defineComponent({
               },
             }
           );
-          if (response.status === 200) {
+          if (response.status === 201) {
             $q.notify({
               message: 'Cuenta Registrada',
               color: 'positive',
