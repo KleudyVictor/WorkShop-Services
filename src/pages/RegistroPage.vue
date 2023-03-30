@@ -45,6 +45,7 @@
           class="q-ma-md"
           color="primary"
           label="Registrar"
+          :loading="loading"
           @click="registrar"
         />
       </div>
@@ -137,6 +138,7 @@ export default defineComponent({
     const password = ref('');
     const isPwd = ref(true);
     const registrar = async () => {
+      loading.value = true;
       try {
         if (email.value !== '' && password.value !== '') {
           const response = await axios.post(
@@ -159,6 +161,9 @@ export default defineComponent({
               color: 'positive',
               position: 'top',
             });
+            email.value = '';
+            password.value = '';
+            loading.value = false;
           }
         } else {
           $q.notify({
@@ -166,6 +171,7 @@ export default defineComponent({
             color: 'negative',
             position: 'top',
           });
+          loading.value = false;
         }
       } catch (error: any) {
         $q.notify({
@@ -174,12 +180,14 @@ export default defineComponent({
           icon: 'check',
           message: String(error.response.data.detail),
         });
+        loading.value = false;
       }
     };
     const email_verificacion = ref('');
     const password_change = ref('');
     const verificada = ref(false);
     const noverficada = ref(false);
+    const loading = ref(false);
     const validarCuenta = async () => {
       try {
         if (email_verificacion.value !== '') {
@@ -269,6 +277,7 @@ export default defineComponent({
       validarCuenta,
       actualizarContraseña,
       registrar,
+      loading,
     };
   },
 });
