@@ -139,12 +139,11 @@ export default defineComponent({
     const isPwd = ref(true);
     const loading = ref(false);
     const registrar = async () => {
-      loading.value = true;
-      try {
-        if (email.value !== '' && password.value !== '') {
+      if (email.value !== '' && password.value !== '') {
+        loading.value = true;
+        try {
           const response = await axios.post(
             'https://workt.workshopsofficial.com/user/',
-            // '{\n  "email": "client@gmail.com",\n  "password": "12345678"\n}',
             {
               email: email.value,
               password: password.value,
@@ -164,24 +163,23 @@ export default defineComponent({
             });
             email.value = '';
             password.value = '';
-            loading.value = false;
           }
-        } else {
+        } catch (error: any) {
           $q.notify({
-            message: 'Campos Vacios',
-            color: 'negative',
-            position: 'top',
+            color: 'red-4',
+            textColor: 'white',
+            icon: 'check',
+            message: String(error.response.data.detail),
           });
+        } finally {
           loading.value = false;
         }
-      } catch (error: any) {
+      } else {
         $q.notify({
-          color: 'red-4',
-          textColor: 'white',
-          icon: 'check',
-          message: String(error.response.data.detail),
+          message: 'Campos Vacios',
+          color: 'negative',
+          position: 'top',
         });
-        loading.value = false;
       }
     };
     const email_verificacion = ref('');
@@ -248,8 +246,7 @@ export default defineComponent({
               position: 'top',
             });
           }
-        }
-        else {
+        } else {
           $q.notify({
             message: 'Campos Vacios',
             color: 'negative',
