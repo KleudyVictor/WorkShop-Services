@@ -137,6 +137,7 @@ export default defineComponent({
     const email = ref('');
     const password = ref('');
     const isPwd = ref(true);
+    const loading = ref(false);
     const registrar = async () => {
       loading.value = true;
       try {
@@ -187,7 +188,6 @@ export default defineComponent({
     const password_change = ref('');
     const verificada = ref(false);
     const noverficada = ref(false);
-    const loading = ref(false);
     const validarCuenta = async () => {
       try {
         if (email_verificacion.value !== '') {
